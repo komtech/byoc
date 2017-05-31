@@ -7,4 +7,5 @@ import com.starbucks.models.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 	public Customer findByCustID(Long id);
+	
 }

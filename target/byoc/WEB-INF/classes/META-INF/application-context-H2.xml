@@ -5,9 +5,7 @@
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
-		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
@@ -20,15 +18,9 @@
 	
 	<tx:annotation-driven/>
 	
-	<!-- <jdbc:embedded-database id="datasource" type="H2"/> -->
-	
+		
 	<!-- Database -->
-		<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		    <property name="url" value="jdbc:mysql://MS13827:3306/byocapp"/>
-		    <property name="username" value="byoc"/>
-		    <property name="password" value="byoc"/>
-		</bean>
+	<jdbc:embedded-database id="datasource" type="H2"/>
 		
 	<!-- Entity Manager -->
 	<bean id="entityManagerFactory"
@@ -37,8 +29,8 @@
 		<property name="dataSource" ref="datasource" />
 		<property name="jpaProperties">
 			<props>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
 			</props>
 		</property>
 		
@@ -55,4 +47,7 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	
+	
+	
 </beans>
