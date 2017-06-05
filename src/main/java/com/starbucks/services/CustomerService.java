@@ -29,10 +29,10 @@ public class CustomerService {
 	
 	@GET
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	@Path("{customerId}") //http://localhost:8080/byoc/customers/1234
-	public Customer getCustomer(@PathParam ("customerId") Long customerId)
+	@Path("{cust_name}") //http://localhost:8080/byoc/customers/1234
+	public Customer getCustomer(@PathParam ("cust_name") String custName)
 	{	
-    	Customer customer=repository.findByCustID(customerId);
+    	Customer customer=repository.findByCustName(custName);
         return customer; 
 	}
 }

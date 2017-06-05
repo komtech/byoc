@@ -27,10 +27,9 @@ public class CustomerRepositoryTest {
 	
 	@Test
 	public void getFirstCustomerTest() {
-		// add a test comment
-		// add another comment
-		Customer customer=repository.findByCustID(1L);
-		String expected="Sopheara Seng";
+		
+		Customer customer=repository.findByCustName("Sopheara");
+		String expected="Sopheara";
 		assertEquals(expected, customer.getCustName());
 	}
 
