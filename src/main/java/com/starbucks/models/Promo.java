@@ -1,6 +1,5 @@
 package com.starbucks.models;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -40,23 +39,10 @@ public class Promo {
 	@Column(name = "PROMO_END_DATE")
 	private Date promoEndDate;
 	
-	@Column(name = "CUST_ENROLL_DATETIME")
-	private Date custEnrollDateTime;
-	
-	@Column(name = "CUST_ID")
-	private Long custId;
-	
-	@Column(name = "PROMO_ENROLL_STATUS")
-	private Short promoEnrollStatus;
-	
-	@Column(name = "PROMO_PROGRESS")
-	private Long promoProgress;
-
 	@XmlElement(name="promo_id")
 	public Long getPromoID() {
 		return promoID;
 	}
-
 	public void setPromoID(Long promoID) {
 		this.promoID = promoID;
 	}
@@ -113,42 +99,6 @@ public class Promo {
 
 	public void setPromoEndDate(Date promoEndDate) {
 		this.promoEndDate = promoEndDate;
-	}
-
-	@XmlElement(name="cust_enrolled_datetime")
-	public Date getCustEnrollDateTime() {
-		return custEnrollDateTime;
-	}
-
-	public void setCustEnrollDateTime(Date custEnrollDateTime) {
-		this.custEnrollDateTime = custEnrollDateTime;
-	}
-
-	@XmlElement(name="cust_id")
-	public Long getCustId() {
-		return custId;
-	}
-
-	public void setCustId(Long custId) {
-		this.custId = custId;
-	}
-
-	@XmlElement(name="promo_enrolled_status")
-	public Short getPromoEnrollStatus() {
-		return promoEnrollStatus;
-	}
-
-	public void setPromoEnrollStatus(Short promoEnrollStatus) {
-		this.promoEnrollStatus = promoEnrollStatus;
-	}
-
-	@XmlElement(name="promo_progress")
-	public Long getPromoProgress() {
-		return promoProgress;
-	}
-
-	public void setPromoProgress(Long promoProgress) {
-		this.promoProgress = promoProgress;
 	}
 	
 }
