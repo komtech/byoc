@@ -1,16 +1,20 @@
 package com.starbucks.models;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 /*CREATE TABLE `customer` (
 		  `CUST_ID` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -25,14 +29,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement
 @Entity
 @Table (name="CUSTOMER")
-//@XmlType(propOrder={"cust_id","cust_name","carbon_reduced","trees_preserved","cust_star_purse","reuse_cup_purse"})
 public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "CUST_ID")
 	private Long custID;
-	
+
 	@Column(name = "CUST_NAME")
 	private String custName;
 	
@@ -100,6 +103,13 @@ public class Customer {
 
 	public void setCarbonReduction(BigDecimal carbonReduction) {
 		this.carbonReduction = carbonReduction;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [custID=" + custID + ", custName=" + custName + ", custStarPurse=" + custStarPurse
+				+ ", reuseCupPurse=" + reuseCupPurse + ", treesPreserved=" + treesPreserved + ", carbonReduction="
+				+ carbonReduction + "]";
 	}
 		
 }
