@@ -28,8 +28,8 @@ public class CustomerRepositoryTest {
 	@Test
 	public void getFirstCustomerTest() {
 		// test check in e
-		Customer customer=repository.findByCustName("Sopheara");
-		String expected="Sopheara";
+		Customer customer=repository.findByCustName("sopheara");
+		String expected="sopheara";
 		assertEquals(expected, customer.getCustName());
 	}
 
