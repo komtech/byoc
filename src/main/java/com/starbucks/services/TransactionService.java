@@ -21,6 +21,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.starbucks.models.Customer;
 import com.starbucks.models.CustomerEnrollFact;
 import com.starbucks.models.Transaction;
+import com.starbucks.models.TransactionReq;
 import com.starbucks.models.TransactionResp;
 import com.starbucks.repositories.CustEnrollFactRepository;
 import com.starbucks.repositories.CustomerRepository;
@@ -85,9 +86,14 @@ public class TransactionService {
 	@POST // http://localhost:8080/byoc/orders
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response orderDrinkParams(Transaction transaction) {
-		Long custID = transaction.getCustomer().getCustID();
-		Long TotalStarsEarned = transaction.getTotalTranAmount().multiply(new BigDecimal(STAR_RATE))
+	public Response orderDrinkParams(TransactionReq transactionReq) {
+		
+		// debug
+				System.out.println(transactionReq);
+
+				
+		Long custID = transactionReq.getCustID();
+		Long TotalStarsEarned = transactionReq.getTotalTranAmount().multiply(new BigDecimal(STAR_RATE))
 				.setScale(0, BigDecimal.ROUND_HALF_UP).longValue();
 	
 		Date today = new Date();
@@ -98,12 +104,17 @@ public class TransactionService {
 		// debug
 		System.out.println(customer);
 
-		// Save the "Personal Cup Discount" transaction		
+		// Save the "Personal Cup Discount" transaction	
+		Transaction transaction = new Transaction();
 		transaction.setTranDateTime(today);
 		transaction.setStars(TotalStarsEarned);
+		transaction.setItemType(transactionReq.getItemType());
+		transaction.setOrderItem(transactionReq.getOrderItem());
+		transaction.setTotalTranAmount(transactionReq.getTotalTranAmount());
 		// Update customer stars
 		customer.setCustStarPurse(customer.getCustStarPurse() + TotalStarsEarned);
-		transaction.setCustomer(customer);		
+		transaction.setCustomer(customer);	
+		
 		tranRepository.save(transaction);
 		
 		// debug
@@ -158,8 +169,6 @@ public class TransactionService {
 		customer.setReuseCupPurse(customer.getReuseCupPurse() + 1);
 
 		customerRepository.save(customer);
-
-
 		return Response.ok().entity(customer).build();
 
 	}
