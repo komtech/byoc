@@ -29,6 +29,19 @@ public class TransactionResp {
 	@Column(name = "ITEM_TYPE")
 	protected String itemType;
 	
+	@Column(name = "ORDER_ITEM")
+	protected String orderItem;
+	
+	@XmlElement(name="order_item")
+	public String getOrderItem() {
+		return orderItem;
+	}
+
+	public void setOrderItem(String orderItem) {
+		this.orderItem = orderItem;
+	}
+	
+	
 	@Column(name = "STARS")
 	private Long stars;
 

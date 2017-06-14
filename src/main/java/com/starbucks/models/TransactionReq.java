@@ -10,12 +10,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="transaction")
 public class TransactionReq {
 
-	@Column(name = "CUST_ID")
-	private Long custID;
+//	@Column(name = "CUST_ID")
+//	private Long custID;
 
-//	@Column(name = "CUST_NAME")
-//	private String custName;
+	@Column(name = "CUST_NAME")
+	private String custName;
 	
+
+
 	@Column(name = "TOTAL_TRAN_AMOUNT")
 	private BigDecimal totalTranAmount;
 	
@@ -25,14 +27,23 @@ public class TransactionReq {
 	@Column(name = "ORDER_ITEM")
 	protected String orderItem;
 	
-	@XmlElement(name="cust_id")
-	public Long getCustID() {
-		return custID;
+	@XmlElement(name="cust_name")
+	public String getCustName() {
+		return custName;
 	}
 
-	public void setCustID(Long custID) {
-		this.custID = custID;
+	public void setCustName(String custName) {
+		this.custName = custName;
 	}
+	
+//	@XmlElement(name="cust_id")
+//	public Long getCustID() {
+//		return custID;
+//	}
+//
+//	public void setCustID(Long custID) {
+//		this.custID = custID;
+//	}
 
 	@XmlElement(name="total_trans_amount")
 	public BigDecimal getTotalTranAmount() {

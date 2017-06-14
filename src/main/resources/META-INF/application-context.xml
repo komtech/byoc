@@ -25,14 +25,9 @@
 	<!-- Database -->
 		<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		   <!--  <property name="url" value="jdbc:mysql://MS13827:3306/byocapp"/>  -->
-		    <!-- <property name="username" value="byoc"/> -->
-		   <!--  <property name="password" value="byoc"/> -->
-		   
-		       <property name="url" value="jdbc:mysql://10.6.49.122:3306/byoc"/>
-		    <property name="username" value="byoc"/>
-		    <property name="password" value="byoc"/>
-		   
+			  <property name="url" value="jdbc:mysql://MS13827:3306/byocapp"/> 
+		 	  <property name="username" value="byoc"/> 
+	     	  <property name="password" value="byoc"/>			   
 		</bean>
 		
 	<!-- Entity Manager -->

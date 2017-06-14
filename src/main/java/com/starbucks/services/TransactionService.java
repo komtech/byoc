@@ -73,6 +73,7 @@ public class TransactionService {
 			tr.setCustID(t.getCustomer().getCustID());
 			tr.setCustName(t.getCustomer().getCustName());
 			tr.setItemType(t.getItemType());
+			tr.setOrderItem(t.getOrderItem());
 			tr.setStars(t.getStars());
 			tr.setTotalTranAmount(t.getTotalTranAmount());
 			tr.setTranDateTime(t.getTranDateTime());
@@ -87,19 +88,16 @@ public class TransactionService {
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	public Response orderDrinkParams(TransactionReq transactionReq) {
-		
-		// debug
-				System.out.println(transactionReq);
-
-				
-		Long custID = transactionReq.getCustID();
+			
+	
+		String custName = transactionReq.getCustName();
 		Long TotalStarsEarned = transactionReq.getTotalTranAmount().multiply(new BigDecimal(STAR_RATE))
 				.setScale(0, BigDecimal.ROUND_HALF_UP).longValue();
 	
 		Date today = new Date();
 
 		// Get customer
-		Customer customer = customerRepository.findOne(custID);
+		Customer customer = customerRepository.findByCustName(custName);
 
 		// debug
 		System.out.println(customer);
@@ -122,7 +120,7 @@ public class TransactionService {
 		System.out.println(transaction);
 
 		// Get a Customer with 'Enrolled' status from CustomerEnrollFact
-		CustomerEnrollFact customerEnrollFact = custEnrollFactRepository.findFirstByCustIDAndPromoEnrollStatus(custID,
+		CustomerEnrollFact customerEnrollFact = custEnrollFactRepository.findFirstByCustIDAndPromoEnrollStatus(customer.getCustID(),
 				"ENROLLED");
 
 		// debug
