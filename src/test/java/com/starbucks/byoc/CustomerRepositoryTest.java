@@ -1,12 +1,11 @@
 package com.starbucks.byoc;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -29,8 +28,8 @@ public class CustomerRepositoryTest {
 	public void getFirstCustomerTest() {
 		// test check in e
 		Customer customer=repository.findByCustName("Sopheara");
-		String expected="Sopheara";
-		assertEquals(expected, customer.getCustName());
+		String expected="Sopheara";	
+		assertTrue(expected.equalsIgnoreCase(customer.getCustName()));	
 	}
 
 }
