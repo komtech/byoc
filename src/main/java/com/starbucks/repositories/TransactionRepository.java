@@ -8,5 +8,5 @@ import com.starbucks.models.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-	public List<Transaction> findByCustomerCustName(String customerName); 
+	public List<Transaction> findTop5ByCustomerCustNameOrderByTranIDAsc(String customerName); 
 }
