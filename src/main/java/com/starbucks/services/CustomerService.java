@@ -83,7 +83,7 @@ public class CustomerService {
 	{	
     	CustomerEnrollService CES = new CustomerEnrollService();
     	CustomerEnrollFact fact = CES.customerEnrollmentRequestPost(customerName, promo.getPromoID());
-    	return Response.ok().entity(fact).build();
+    	return Response.ok().build();//.entity(fact).build();
 	}
 	
 	public Customer getCustomerName(String customerName)
