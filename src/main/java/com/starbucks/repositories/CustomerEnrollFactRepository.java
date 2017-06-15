@@ -8,6 +8,7 @@ public interface CustomerEnrollFactRepository extends JpaRepository<CustomerEnro
 	
 	public CustomerEnrollFact findByPromoID(Long id);
 	public CustomerEnrollFact findByCustID(Long id);
+	public CustomerEnrollFact findByCustIDAndPromoEnrollStatus(Long id, String str);
 	
 	
 }

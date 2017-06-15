@@ -106,7 +106,8 @@ public class CustomerEnrollService {
 		
 		//Make sure there the enrollment repo doesn' thave that fact already
 		CustomerEnrollFact custFactPrmo = new CustomerEnrollFact();
-		custFactPrmo = cer.getPromoByCustomerID(cust.getCustID());
+		//custFactPrmo = cer.getPromoByCustomerID(cust.getCustID());
+		custFactPrmo = cer.getPromoByCustomerIDbyStatus(cust.getCustID());
 		CustomerEnrollFact fact = null;
 		if(custFactPrmo != null && custFactPrmo.getPromoEnrollStatus().equalsIgnoreCase("enrolled"))
 		{
@@ -141,6 +142,12 @@ public class CustomerEnrollService {
 	public CustomerEnrollFact getPromoByCustomerID(Long customerID)
 	{	
 		CustomerEnrollFact customerFact=repository.findByCustID(customerID);
+		return customerFact; 
+	}
+	
+	public CustomerEnrollFact getPromoByCustomerIDbyStatus(Long customerID)
+	{	
+		CustomerEnrollFact customerFact=repository.findByCustIDAndPromoEnrollStatus(customerID, "Enrolled");
 		return customerFact; 
 	}
 	
