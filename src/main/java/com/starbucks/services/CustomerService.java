@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response.Status;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.starbucks.models.Customer;
+import com.starbucks.models.CustomerEnrollFact;
 import com.starbucks.models.Promo;
 import com.starbucks.repositories.CustomerRepository;
 
@@ -77,11 +78,12 @@ public class CustomerService {
 	@POST
 	@Consumes({MediaType.APPLICATION_XML})
 	@Path("/{customerName}/enroll") //http://localhost:8080/byoc/customers/1234
-	public void enrollCustomer(@PathParam ("customerName") String customerName,
+	public Response enrollCustomer(@PathParam ("customerName") String customerName,
 			 Promo promo)
 	{	
     	CustomerEnrollService CES = new CustomerEnrollService();
-    	CES.customerEnrollmentRequestPost(customerName, promo.getPromoID());
+    	CustomerEnrollFact fact = CES.customerEnrollmentRequestPost(customerName, promo.getPromoID());
+    	return Response.ok().entity(fact).build();
 	}
 	
 	public Customer getCustomerName(String customerName)

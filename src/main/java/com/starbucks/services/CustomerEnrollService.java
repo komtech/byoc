@@ -88,7 +88,7 @@ public class CustomerEnrollService {
 	}
 
 
-	public void customerEnrollmentRequestPost(String customerName, long promoID)
+	public CustomerEnrollFact customerEnrollmentRequestPost(String customerName, long promoID)
 	{
 		//Getting the customer and promo
 		CustomerService cs = new CustomerService();
@@ -134,6 +134,7 @@ public class CustomerEnrollService {
 		fact.setPromoProgress((long) 1);
 
 		repository.save(fact);
+		return fact;
 	}
 	
 
