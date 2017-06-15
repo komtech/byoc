@@ -1,8 +1,11 @@
 package com.starbucks.services;
 
+<<<<<<< HEAD
+=======
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+>>>>>>> MinhDev
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -54,25 +57,21 @@ public class CustomerService {
 	{	
     	List<Customer> customers=repository.findAll();
         return customers; 
+	}*/
 	
 	
-	
-	@GET
+	/*@GET
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+<<<<<<< HEAD
+	@Path("{cust_name}") //http://localhost:8080/byoc/customers/sopheara
+	public Customer getCustomer(@PathParam ("cust_name") String custName)
+=======
 	@Path("{customerId}") //http://localhost:8080/byoc/customers/1234
 	public Customer getCustomer(@PathParam ("customerId") Long customerId)
 	{	
     	Customer customer=repository.findByCustID(customerId);
         return customer; 
 	}
-	}*/
-	
-	public Customer getCustomer(@PathParam ("customerId") Long customerId)
-	{	
-    	Customer customer=repository.findByCustID(customerId);
-        return customer; 
-	}
-	
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML})
@@ -85,8 +84,12 @@ public class CustomerService {
 	}
 	
 	public Customer getCustomerName(String customerName)
+>>>>>>> MinhDev
 	{	
     	Customer customer=repository.findByCustName(customerName);
         return customer; 
-	}
+	}*/
+	
+
+	
 }
