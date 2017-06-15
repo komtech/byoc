@@ -1,5 +1,8 @@
 package com.starbucks.services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManagerFactory;
@@ -68,17 +71,18 @@ public class CustomerEnrollService {
 		}
 
 		CustomerEnrollFact fact = new CustomerEnrollFact();
-		fact.setCustID(param1);
 		fact.setPromoID(param2);
-		//fact.setPromoEnrollStatus("true");
-		fact.setPromoGoal(promo.getPromoGoal());
+		fact.setCustID(param1);
 		fact.setPromoName(promo.getPromoName());
-		fact.setPromoProgress((long) 1);
+		fact.setPromoGoal(promo.getPromoGoal());
 		fact.setPromoStarReward(promo.getPromoStarReward());
-		fact.setPromoStartDate(promo.getPromoStartDate());
-		fact.setCustEnrollDate(promo.getPromoStartDate());
+		
+		Date date = new Date();
+		fact.setCustEnrollDateTime(date);
 		fact.setPromoEndDate(promo.getPromoEndDate());
-
+		fact.setPromoEnrollStatus("Enrolled");
+		fact.setPromoProgress((long) 1);
+		
 		repository.save(fact);
 		return fact;
 	}
@@ -92,23 +96,42 @@ public class CustomerEnrollService {
 
 		PromoService ps = new PromoService();
 		Promo promo = ps.getPromo(promoID);
+		
+		CustomerEnrollService cer = new CustomerEnrollService();
 
-		if(promo == null || cust == null)
+		if(promo == null || cust == null  || cer == null)
 		{
 			//throw some error
 		}
-
-		CustomerEnrollFact fact = new CustomerEnrollFact();
-		fact.setCustID(cust.getCustID());
+		
+		//Make sure there the enrollment repo doesn' thave that fact already
+		CustomerEnrollFact custFactPrmo = new CustomerEnrollFact();
+		custFactPrmo = cer.getPromoByCustomerID(cust.getCustID());
+		CustomerEnrollFact fact = null;
+		if(custFactPrmo != null && custFactPrmo.getPromoEnrollStatus().equalsIgnoreCase("enrolled"))
+		{
+			custFactPrmo.setPromoEnrollStatus("Cancelled");
+			//Customer is already enrolled in something
+			repository.save(custFactPrmo);
+			fact = custFactPrmo;
+			
+		}
+		else
+		{
+			fact = new CustomerEnrollFact();
+		}
+		
 		fact.setPromoID(promoID);
-		fact.setPromoEnrollStatus("true");
-		fact.setPromoGoal(promo.getPromoGoal());
+		fact.setCustID(cust.getCustID());
 		fact.setPromoName(promo.getPromoName());
-		fact.setPromoProgress((long) 1);
+		fact.setPromoGoal(promo.getPromoGoal());
 		fact.setPromoStarReward(promo.getPromoStarReward());
-		fact.setPromoStartDate(promo.getPromoStartDate());
-		fact.setCustEnrollDate(promo.getPromoStartDate());
+		
+		Date date = new Date();
+		fact.setCustEnrollDateTime(date);
 		fact.setPromoEndDate(promo.getPromoEndDate());
+		fact.setPromoEnrollStatus("Enrolled");
+		fact.setPromoProgress((long) 1);
 
 		repository.save(fact);
 	}

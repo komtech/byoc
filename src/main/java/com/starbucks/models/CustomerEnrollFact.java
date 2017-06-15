@@ -1,7 +1,5 @@
 package com.starbucks.models;
 
-
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -35,11 +33,33 @@ CREATE TABLE `cust_promo_enroll_fact` (
 @Table (name="cust_promo_enroll_fact")
 public class CustomerEnrollFact {
 	
+	
+	
+	@Override
+	public String toString() {
+		return "CustomerEnrollFact [promoID=" + promoID + ", custID=" + custID + ", promoName=" + promoName
+				+ ", promoGoal=" + promoGoal + ", PromoStarReward=" + PromoStarReward + ", promoEnrollStatus="
+				+ promoEnrollStatus + ", custEnrollDateTime=" + custEnrollDateTime + ", promoEndDate=" + promoEndDate
+				+ ", promoProgress=" + promoProgress + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "CUST_PROMO_ID")
+	private Long custPromoID;
+	
 	@Column(name = "PROMO_ID")
 	private Long promoID;
 	
+	@XmlElement(name="cust_promo_id")
+	public Long getCustPromoID() {
+		return custPromoID;
+	}
+
+	public void setCustPromoID(Long custPromoID) {
+		this.custPromoID = custPromoID;
+	}
+
 	@Column(name = "CUST_ID")
 	private Long custID;
 	
@@ -55,69 +75,14 @@ public class CustomerEnrollFact {
 	@Column(name = "PROMO_ENROLL_STATUS")
 	private String promoEnrollStatus;
 	
-	@Column(name = "PROMO_START_DATE")
-	private Date promoStartDate;
+	@Column(name = "CUST_ENROLL_DATETIME")
+	private Date custEnrollDateTime;
 	
 	@Column(name = "PROMO_END_DATETIME")
 	private Date promoEndDate;
 	
-	@XmlElement(name="promo_end")
-	public Date getPromoEndDate() {
-		return promoEndDate;
-	}
-
-	public void setPromoEndDate(Date promoEndDate) {
-		this.promoEndDate = promoEndDate;
-	}
-
-	@Column(name = "CUST_ENROLL_DATE")
-	public Date getCustEnrollDate() {
-		return custEnrollDate;
-	}
-
-	public void setCustEnrollDate(Date custEnrollDate) {
-		this.custEnrollDate = custEnrollDate;
-	}
-
-	@Column(name = "PROMO_ENROLL_STATUS")
-	public String getPromoEnrollStatus() {
-		return promoEnrollStatus;
-	}
-
-	@Column(name = "CUST_ENROLL_DATETIME")
-	private Date custEnrollDate;
-	
 	@Column(name = "PROMO_PROGRESS")
 	private Long promoProgress;
-	
-	//Getters and Setters
-
-	@XmlElement(name="customer_id")
-	public Long getCustID() {
-		return custID;
-	}
-
-	public void setCustID(Long custID) {
-		this.custID = custID;
-	}
-
-	@XmlElement(name="promo_status")
-	public String isPromoEnrollStatus() {
-		return promoEnrollStatus;
-	}
-
-	public void setPromoEnrollStatus(String promoEnrollStatus) {
-		this.promoEnrollStatus = promoEnrollStatus;
-	}
-
-	@XmlElement(name="promo_progress")
-	public Long getPromoProgress() {
-		return promoProgress;
-	}
-
-	public void setPromoProgress(Long promoProgress) {
-		this.promoProgress = promoProgress;
-	}
 
 	@XmlElement(name="promo_id")
 	public Long getPromoID() {
@@ -126,6 +91,15 @@ public class CustomerEnrollFact {
 
 	public void setPromoID(Long promoID) {
 		this.promoID = promoID;
+	}
+
+	@XmlElement(name="cust_id")
+	public Long getCustID() {
+		return custID;
+	}
+
+	public void setCustID(Long custID) {
+		this.custID = custID;
 	}
 
 	@XmlElement(name="promo_name")
@@ -145,8 +119,7 @@ public class CustomerEnrollFact {
 	public void setPromoGoal(Long promoGoal) {
 		this.promoGoal = promoGoal;
 	}
-
-	@XmlElement(name="promo_star")
+	@XmlElement(name="promo_star_reward")
 	public Long getPromoStarReward() {
 		return PromoStarReward;
 	}
@@ -155,14 +128,41 @@ public class CustomerEnrollFact {
 		PromoStarReward = promoStarReward;
 	}
 
-
-	@XmlElement(name="promo_start")
-	public Date getPromoStartDate() {
-		return promoStartDate;
+	@XmlElement(name="promo_enroll_status")
+	public String getPromoEnrollStatus() {
+		return promoEnrollStatus;
 	}
 
-	public void setPromoStartDate(Date promoStartDate) {
-		this.promoStartDate = promoStartDate;
+	public void setPromoEnrollStatus(String promoEnrollStatus) {
+		this.promoEnrollStatus = promoEnrollStatus;
 	}
+
+	@XmlElement(name="cust_enroll_datetime")
+	public Date getCustEnrollDateTime() {
+		return custEnrollDateTime;
+	}
+
+	public void setCustEnrollDateTime(Date custEnrollDateTime) {
+		this.custEnrollDateTime = custEnrollDateTime;
+	}
+
+	@XmlElement(name="promo_end_date")
+	public Date getPromoEndDate() {
+		return promoEndDate;
+	}
+
+	public void setPromoEndDate(Date promoEndDate) {
+		this.promoEndDate = promoEndDate;
+	}
+
+	@XmlElement(name="promo_progress")
+	public Long getPromoProgress() {
+		return promoProgress;
+	}
+
+	public void setPromoProgress(Long promoProgress) {
+		this.promoProgress = promoProgress;
+	}
+
 }
 
