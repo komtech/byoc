@@ -27,7 +27,7 @@ public class PromoService {
    
 	@GET
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	
+<<<<<<< HEAD
 	public Response getAllPromos()
 	{	
     	List<Promo> promo=repository.findAll();        
@@ -37,10 +37,8 @@ public class PromoService {
     		return Response.status(Status.NOT_FOUND).build();
     		
     	}
-        
         return Response.ok().entity(new GenericEntity<List<Promo>>(promo) {}).build();
-	}
-
+=======
 	public List<Promo> getAllPromo()
 	{	
     	List<Promo> promos=repository.findAll();
@@ -54,7 +52,7 @@ public class PromoService {
 	{	
     	Promo promo=repository.findByPromoID(promoID);
         return promo; 
-
+>>>>>>> MinhDev
 	}
 	
 	@GET

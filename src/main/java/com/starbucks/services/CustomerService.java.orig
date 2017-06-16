@@ -1,8 +1,11 @@
 package com.starbucks.services;
 
+<<<<<<< HEAD
+=======
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+>>>>>>> MinhDev
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -16,7 +19,6 @@ import javax.ws.rs.core.Response.Status;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.starbucks.models.Customer;
-import com.starbucks.models.CustomerEnrollFact;
 import com.starbucks.models.Promo;
 import com.starbucks.repositories.CustomerRepository;
 
@@ -55,40 +57,39 @@ public class CustomerService {
 	{	
     	List<Customer> customers=repository.findAll();
         return customers; 
+	}*/
 	
 	
-	
-	@GET
+	/*@GET
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+<<<<<<< HEAD
+	@Path("{cust_name}") //http://localhost:8080/byoc/customers/sopheara
+	public Customer getCustomer(@PathParam ("cust_name") String custName)
+=======
 	@Path("{customerId}") //http://localhost:8080/byoc/customers/1234
 	public Customer getCustomer(@PathParam ("customerId") Long customerId)
 	{	
     	Customer customer=repository.findByCustID(customerId);
         return customer; 
 	}
-	}*/
-	
-	public Customer getCustomer(@PathParam ("customerId") Long customerId)
-	{	
-    	Customer customer=repository.findByCustID(customerId);
-        return customer; 
-	}
-	
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML})
 	@Path("/{customerName}/enroll") //http://localhost:8080/byoc/customers/1234
-	public Response enrollCustomer(@PathParam ("customerName") String customerName,
+	public void enrollCustomer(@PathParam ("customerName") String customerName,
 			 Promo promo)
 	{	
     	CustomerEnrollService CES = new CustomerEnrollService();
-    	CustomerEnrollFact fact = CES.customerEnrollmentRequestPost(customerName, promo.getPromoID());
-    	return Response.ok().build();//.entity(fact).build();
+    	CES.customerEnrollmentRequestPost(customerName, promo.getPromoID());
 	}
 	
 	public Customer getCustomerName(String customerName)
+>>>>>>> MinhDev
 	{	
     	Customer customer=repository.findByCustName(customerName);
         return customer; 
-	}
+	}*/
+	
+
+	
 }

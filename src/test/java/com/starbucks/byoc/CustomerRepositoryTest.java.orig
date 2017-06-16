@@ -27,12 +27,15 @@ public class CustomerRepositoryTest {
 	@Test
 	public void getFirstCustomerTest() {
 		// test check in e
-
+<<<<<<< HEAD
 		Customer customer=repository.findByCustName("Sopheara");
 		String expected="Sopheara";	
 		assertTrue(expected.equalsIgnoreCase(customer.getCustName()));	
-
-
+=======
+		Customer customer=repository.findByCustName("sopheara");
+		String expected="sopheara";
+		assertEquals(expected, customer.getCustName());
+>>>>>>> MinhDev
 	}
 
 }

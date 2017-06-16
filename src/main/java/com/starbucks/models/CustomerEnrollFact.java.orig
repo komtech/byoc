@@ -1,5 +1,10 @@
 package com.starbucks.models;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> MinhDev
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -33,6 +38,7 @@ CREATE TABLE `cust_promo_enroll_fact` (
 @Table (name="cust_promo_enroll_fact")
 public class CustomerEnrollFact {
 	
+<<<<<<< HEAD
 	
 	
 	@Override
@@ -60,6 +66,13 @@ public class CustomerEnrollFact {
 		this.custPromoID = custPromoID;
 	}
 
+=======
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "PROMO_ID")
+	private Long promoID;
+	
+>>>>>>> MinhDev
 	@Column(name = "CUST_ID")
 	private Long custID;
 	
@@ -75,12 +88,18 @@ public class CustomerEnrollFact {
 	@Column(name = "PROMO_ENROLL_STATUS")
 	private String promoEnrollStatus;
 	
+<<<<<<< HEAD
 	@Column(name = "CUST_ENROLL_DATETIME")
 	private Date custEnrollDateTime;
+=======
+	@Column(name = "PROMO_START_DATE")
+	private Date promoStartDate;
+>>>>>>> MinhDev
 	
 	@Column(name = "PROMO_END_DATETIME")
 	private Date promoEndDate;
 	
+<<<<<<< HEAD
 	@Column(name = "PROMO_PROGRESS")
 	private Long promoProgress;
 
@@ -94,6 +113,40 @@ public class CustomerEnrollFact {
 	}
 
 	@XmlElement(name="cust_id")
+=======
+	@XmlElement(name="promo_end")
+	public Date getPromoEndDate() {
+		return promoEndDate;
+	}
+
+	public void setPromoEndDate(Date promoEndDate) {
+		this.promoEndDate = promoEndDate;
+	}
+
+	@Column(name = "CUST_ENROLL_DATE")
+	public Date getCustEnrollDate() {
+		return custEnrollDate;
+	}
+
+	public void setCustEnrollDate(Date custEnrollDate) {
+		this.custEnrollDate = custEnrollDate;
+	}
+
+	@Column(name = "PROMO_ENROLL_STATUS")
+	public String getPromoEnrollStatus() {
+		return promoEnrollStatus;
+	}
+
+	@Column(name = "CUST_ENROLL_DATETIME")
+	private Date custEnrollDate;
+	
+	@Column(name = "PROMO_PROGRESS")
+	private Long promoProgres;
+	
+	//Getters and Setters
+
+	@XmlElement(name="customer_id")
+>>>>>>> MinhDev
 	public Long getCustID() {
 		return custID;
 	}
@@ -102,6 +155,36 @@ public class CustomerEnrollFact {
 		this.custID = custID;
 	}
 
+<<<<<<< HEAD
+=======
+	@XmlElement(name="promo_status")
+	public String isPromoEnrollStatus() {
+		return promoEnrollStatus;
+	}
+
+	public void setPromoEnrollStatus(String promoEnrollStatus) {
+		this.promoEnrollStatus = promoEnrollStatus;
+	}
+
+	@XmlElement(name="promo_progress")
+	public Long getPromoProgres() {
+		return promoProgres;
+	}
+
+	public void setPromoProgres(Long promoProgres) {
+		this.promoProgres = promoProgres;
+	}
+
+	@XmlElement(name="promo_id")
+	public Long getPromoID() {
+		return promoID;
+	}
+
+	public void setPromoID(Long promoID) {
+		this.promoID = promoID;
+	}
+
+>>>>>>> MinhDev
 	@XmlElement(name="promo_name")
 	public String getPromoName() {
 		return promoName;
@@ -119,7 +202,12 @@ public class CustomerEnrollFact {
 	public void setPromoGoal(Long promoGoal) {
 		this.promoGoal = promoGoal;
 	}
+<<<<<<< HEAD
 	@XmlElement(name="promo_star_reward")
+=======
+
+	@XmlElement(name="promo_star")
+>>>>>>> MinhDev
 	public Long getPromoStarReward() {
 		return PromoStarReward;
 	}
@@ -128,6 +216,7 @@ public class CustomerEnrollFact {
 		PromoStarReward = promoStarReward;
 	}
 
+<<<<<<< HEAD
 	@XmlElement(name="promo_enroll_status")
 	public String getPromoEnrollStatus() {
 		return promoEnrollStatus;
@@ -164,5 +253,20 @@ public class CustomerEnrollFact {
 		this.promoProgress = promoProgress;
 	}
 
+
+
+
+
+=======
+
+	@XmlElement(name="promo_start")
+	public Date getPromoStartDate() {
+		return promoStartDate;
+	}
+
+	public void setPromoStartDate(Date promoStartDate) {
+		this.promoStartDate = promoStartDate;
+	}
+>>>>>>> MinhDev
 }
 
