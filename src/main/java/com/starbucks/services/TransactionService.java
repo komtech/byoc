@@ -167,7 +167,8 @@ public class TransactionService {
 		customer.setReuseCupPurse(customer.getReuseCupPurse() + 1);
 
 		customerRepository.save(customer);
-		return Response.ok().entity(customer).build();
+//		return Response.ok().entity(customer).build();
+		return Response.ok().build();
 
 	}
 
