@@ -1,8 +1,11 @@
 package com.starbucks.services;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -16,6 +19,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.starbucks.models.Customer;
 import com.starbucks.models.CustomerEnrollFact;
 import com.starbucks.models.Promo;
+import com.starbucks.models.PromoReq;
+import com.starbucks.repositories.CustEnrollFactRepository;
 import com.starbucks.repositories.CustomerRepository;
 import com.starbucks.repositories.PromoRepository;
 
@@ -23,14 +28,16 @@ import com.starbucks.repositories.PromoRepository;
 public class PromoService {
 	
 	ClassPathXmlApplicationContext context= new ClassPathXmlApplicationContext("META-INF/application-context.xml");
-	PromoRepository repository=context.getBean(PromoRepository.class);
+	PromoRepository promoRepository=context.getBean(PromoRepository.class);
+	CustEnrollFactRepository custEnrollFactRepository = context.getBean(CustEnrollFactRepository.class);
+	CustomerRepository customerRepository = context.getBean(CustomerRepository.class);
    
 	@GET
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
 	
 	public Response getAllPromos()
 	{	
-    	List<Promo> promo=repository.findAll();        
+    	List<Promo> promo=promoRepository.findAll();        
      
         if(promo.size()==0) 
     	{
@@ -41,39 +48,60 @@ public class PromoService {
         return Response.ok().entity(new GenericEntity<List<Promo>>(promo) {}).build();
 	}
 
-	public List<Promo> getAllPromo()
-	{	
-    	List<Promo> promos=repository.findAll();
-        return promos; 
-	}
 	
 	@GET
     @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	@Path("{customerId}") //http://localhost:8080/byoc/customers/1234
-	public Promo getPromo(@PathParam ("customerId") Long promoID)
+	@Path("{cust_name}") // http://localhost:8080/byoc/promos/sopheara
+	public Response getPromo(@PathParam("cust_name") String custName)
 	{	
-    	Promo promo=repository.findByPromoID(promoID);
-        return promo; 
+		// Get customer
+		Customer customer = customerRepository.findByCustName(custName);
+		// Get a Customer with 'Enrolled' status from CustomerEnrollFact
+		
+		CustomerEnrollFact customerEnrollFact = custEnrollFactRepository.findFirstByCustIDAndPromoEnrollStatus(customer.getCustID(),
+						"ENROLLED");
+		if(customerEnrollFact==null)
+		{
+			return Response.status(Status.NOT_FOUND).build();
+		}
+    	
+        return Response.ok().entity(customerEnrollFact).build(); 
 
 	}
 	
-	@GET
-    @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-	@Path("/customer/{customerName}") //http://localhost:8080/byoc/customers/1234
-	public Promo getCustomerPromo(@PathParam ("customerName") String customerName)
-	{	
-		CustomerService cs = new CustomerService();
-		CustomerEnrollService CES = new CustomerEnrollService();
-    	Customer customer = cs.getCustomerName(customerName);
-    	Long custID = customer.getCustID();
-    	
-    	// user the custom ID to find the promo the in the CES.
-    	
-    	CustomerEnrollFact CEF = new CustomerEnrollFact();
-    	CEF = CES.getPromoByCustomerID(custID);
-    	
-    	Promo promo = this.getPromo(CEF.getPromoID());
- 
-        return promo; 
-	}	
+	@POST // http://localhost:8080/byoc/orders
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public Response enrollPromo(PromoReq promoReq) {
+		
+			
+		// Get customer
+		Customer customer = customerRepository.findByCustName(promoReq.getCustName());
+		Promo promo=promoRepository.findByPromoName(promoReq.getPromoName());
+		
+		// Get a Customer with 'Enrolled' status from CustomerEnrollFact
+		CustomerEnrollFact customerEnrollFact = custEnrollFactRepository.findFirstByCustIDAndPromoEnrollStatus(customer.getCustID(),
+						"ENROLLED");
+		if (customerEnrollFact == null) {
+			customerEnrollFact=new CustomerEnrollFact();
+			customerEnrollFact.setPromoID(promo.getPromoID());
+			customerEnrollFact.setCustID(customer.getCustID());
+			customerEnrollFact.setPromoName(promo.getPromoName());
+			customerEnrollFact.setPromoGoal(promo.getPromoGoal());
+			customerEnrollFact.setPromoStarReward(promo.getPromoStarReward());
+			customerEnrollFact.setPromoEnrollStatus("ENROLLED");
+			customerEnrollFact.setCustEnrollDateTime(new Date());
+			customerEnrollFact.setPromoEndDate(promo.getPromoEndDate());
+			customerEnrollFact.setPromoProgress(0L);			
+		}
+		
+		custEnrollFactRepository.save(customerEnrollFact);
+		
+		return Response.ok().build();
+	
+
+	}
+
+	
+
 }

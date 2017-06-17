@@ -37,20 +37,9 @@ public class TransactionService {
 	CustEnrollFactRepository custEnrollFactRepository = context.getBean(CustEnrollFactRepository.class);
 
 	final double STAR_RATE = 2.00;
-	final double TREE_RATE = 2.00;
+	final double TREE_RATE = 0.000406;
 	final double CARBON_RATE = 2.00;
-	final Long BONUS_STARS_AWARDED = 60L;
-//
-//	/*
-//	 * @GET
-//	 * 
-//	 * @Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
-//	 * 
-//	 * @Path("{cust_name}") //http://localhost:8080/byoc/customers/sopheara
-//	 * public List<Transaction> getCustomer(@PathParam ("cust_name") String
-//	 * custName) { //test check in comment List<Transaction>
-//	 * trans=repository.findByCustomerCustName(custName); return trans; }
-//	 */
+
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Path("{cust_name}") // http://localhost:8080/byoc/orders/sopheara
@@ -137,18 +126,18 @@ public class TransactionService {
 
 			// Update Promo Enroll Status if Promo Goal equal Promo Progress
 			if (customerEnrollFact.getPromoGoal().equals(customerEnrollFact.getPromoProgress())
-					&& customerEnrollFact.getPromoEnrollStatus().equals("ENROLLED")) {
+					&& customerEnrollFact.getPromoEnrollStatus().equalsIgnoreCase("ENROLLED")) {
 				customerEnrollFact.setPromoEnrollStatus("WON");
 
 				// Insert a new transaction for earn reward stars amount into
 				// Transaction table("BONUS STARS AWARDED")
 				Transaction starsEarnedTrans = new Transaction();				
 				starsEarnedTrans.setItemType("BONUS STARS AWARDED");
-				starsEarnedTrans.setStars(BONUS_STARS_AWARDED);
+				starsEarnedTrans.setStars(customerEnrollFact.getPromoStarReward());
 				starsEarnedTrans.setTotalTranAmount(new BigDecimal(0));
 				starsEarnedTrans.setTranDateTime(today);
 				// Update customer stars
-				customer.setCustStarPurse(customer.getCustStarPurse() + BONUS_STARS_AWARDED);
+				customer.setCustStarPurse(customer.getCustStarPurse() + customerEnrollFact.getPromoStarReward());
 				starsEarnedTrans.setCustomer(customer);
 
 				// save the bonus star earn transaction
@@ -167,22 +156,9 @@ public class TransactionService {
 		customer.setReuseCupPurse(customer.getReuseCupPurse() + 1);
 
 		customerRepository.save(customer);
-//		return Response.ok().entity(customer).build();
+		//return Response.ok().entity(customer).build();
 		return Response.ok().build();
 
 	}
-
-	// @POST // http://localhost:8080/byoc/order
-	// @Consumes(MediaType.APPLICATION_XML)
-	// @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	// public Customer orderDrinkParams(Customer customer)
-	// {
-	// System.out.println(customer.getCustID());
-	// System.out.println(customer.getCustName());
-	// System.out.println(customer.getCustStarPurse());
-	//
-	// return customer;
-	//
-	// }
 
 }
