@@ -37,8 +37,8 @@ public class TransactionService {
 	CustEnrollFactRepository custEnrollFactRepository = context.getBean(CustEnrollFactRepository.class);
 
 	final double STAR_RATE = 2.00;
-	final double TREE_RATE = 0.000406;
-	final double CARBON_RATE = 2.00;
+	final double TREE_RATE = 0.00040625;
+	final double CARBON_RATE = 0.24;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
