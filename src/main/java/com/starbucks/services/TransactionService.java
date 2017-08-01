@@ -48,7 +48,7 @@ public class TransactionService {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		
-		List<Transaction> trans = tranRepository.findTop5ByCustomerCustNameOrderByTranIDAsc(custName);
+		List<Transaction> trans = tranRepository.findTop5ByCustomerCustNameOrderByTranIDDesc(custName);
 
 		if (trans.size() == 0) {
 			return Response.status(Status.NOT_FOUND).build();
